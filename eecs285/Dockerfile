@@ -27,3 +27,6 @@ COPY checkstyle /opt/checkstyle/
 RUN chmod a+x /opt/checkstyle/checkstyle
 
 ENV PATH /opt/checkstyle:/opt/pmd/bin:$PATH
+
+RUN apt-get install -y junit4
+ENV CLASSPATH $CLASSPATH:/usr/share/java/junit4.jar
