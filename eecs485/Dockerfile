@@ -1,7 +1,12 @@
 FROM jameslp/autograder-sandbox:3.1.2
 
 RUN apt-get update
-RUN apt-get install -y software-properties-common python-software-properties
+RUN apt-get install -y software-properties-common python3-software-properties
+
+RUN apt-get install -y libxml2-dev libxslt1-dev libz-dev
+
+RUN add-apt-repository ppa:deadsnakes/ppa && apt-get update
+RUN apt-get install -y python3.7
 
 RUN add-apt-repository ppa:webupd8team/java && apt-get update
 RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
@@ -9,22 +14,22 @@ RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 RUN apt-get update --fix-missing && \
-    apt-get install -y python3-wheel python3-setuptools python3-dev python3-pip python3-venv
+    apt-get install -y python3-wheel python3-setuptools python3.7-dev python3-pip python3.7-venv
 
 ENV JAVA_TOOL_OPTIONS -Xms512m -Xmx512m -XX:+UseSerialGC -XX:MaxMetaspaceSize=256m -XX:CompressedClassSpaceSize=128m
 
 RUN apt-get install -y sqlite3
 
 COPY requirements-485-p1.txt .
-RUN python3 -m venv env
+RUN python3.7 -m venv env
 RUN env/bin/pip install -r requirements-485-p1.txt
 
 COPY requirements-485-p2.txt .
-RUN python3 -m venv env-p2
+RUN python3.7 -m venv env-p2
 RUN env-p2/bin/pip install -r requirements-485-p2.txt
 
 COPY requirements-485-p3.txt .
-RUN python3 -m venv env-p3
+RUN python3.7 -m venv env-p3
 RUN env-p3/bin/pip install -r requirements-485-p3.txt
 
 RUN apt-get install -y unzip
@@ -47,11 +52,11 @@ RUN env-p3/bin/nodeenv --python-virtualenv
 RUN . env-p3/bin/activate && npm install .
 
 COPY requirements-485-p4.txt .
-RUN python3 -m venv env-p4
+RUN python3.7 -m venv env-p4
 RUN env-p4/bin/pip install -r requirements-485-p4.txt
 
 COPY requirements-485-p5.txt .
-RUN python3 -m venv env-p5
+RUN python3.7 -m venv env-p5
 RUN env-p5/bin/pip install -r requirements-485-p5.txt
 
 RUN env-p5/bin/pip install nodeenv
