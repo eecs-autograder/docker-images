@@ -21,8 +21,8 @@ ENV JAVA_TOOL_OPTIONS -Xms512m -Xmx512m -XX:+UseSerialGC -XX:MaxMetaspaceSize=25
 RUN apt-get install -y sqlite3
 
 COPY requirements-485-p1.txt .
-RUN python3.7 -m venv env
-RUN env/bin/pip install -r requirements-485-p1.txt
+RUN python3.7 -m venv env-p1
+RUN env-p1/bin/pip install -r requirements-485-p1.txt
 
 COPY requirements-485-p2.txt .
 RUN python3.7 -m venv env-p2
