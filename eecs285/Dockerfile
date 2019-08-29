@@ -3,16 +3,19 @@ FROM jameslp/autograder-sandbox:3.1.2
 RUN apt-get update --fix-missing
 RUN apt-get install -y software-properties-common
 
-RUN add-apt-repository ppa:webupd8team/java
 RUN apt-get update
 
-RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-    apt-get install -y oracle-java8-installer
+COPY jdk-8u211-linux-x64.tar.gz .
+RUN tar -xf jdk-8u211-linux-x64.tar.gz
+RUN mkdir -p /opt
+RUN mv jdk1.8.0_211 /opt
 
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+ENV PATH /opt/jdk1.8.0_211/bin:$PATH
+
+ENV JAVA_HOME /opt/jdk1.8.0_211
 ENV JAVA_TOOL_OPTIONS -Xms512m -Xmx512m -XX:+UseSerialGC -XX:MaxMetaspaceSize=256m -XX:CompressedClassSpaceSize=128m
 
-RUN apt-get install -y unzip
+RUN apt-get install -y unzip wget
 
 RUN wget https://github.com/pmd/pmd/releases/download/pmd_releases%2F6.8.0/pmd-bin-6.8.0.zip
 RUN unzip pmd-bin-6.8.0.zip
@@ -30,3 +33,5 @@ ENV PATH /opt/checkstyle:/opt/pmd/bin:$PATH
 
 RUN apt-get install -y junit4
 ENV CLASSPATH $CLASSPATH:/usr/share/java/junit4.jar
+
+RUN rm jdk-8u211-linux-x64.tar.gz
