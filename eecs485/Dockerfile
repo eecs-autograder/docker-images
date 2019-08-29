@@ -68,7 +68,7 @@ RUN unzip chromedriver_linux64.zip
 RUN mv chromedriver env-p5/bin
 RUN rm chromedriver_linux64.zip
 
-ENV hadoop_version 2.8.4
+ENV hadoop_version 2.8.5
 RUN wget http://apache.osuosl.org/hadoop/common/hadoop-${hadoop_version}/hadoop-${hadoop_version}.tar.gz
 RUN tar -xvz -C /opt -f hadoop-${hadoop_version}.tar.gz
 ENV PATH="/opt/hadoop-${hadoop_version}/bin:${PATH}"
