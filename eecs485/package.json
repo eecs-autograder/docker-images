@@ -1,9 +1,9 @@
 {
-  "name": "search",
+  "name": "insta485",
   "version": "0.1.0",
-  "description": "search interface front end",
-  "main": "search/js/main.jsx",
-  "author": "coyleph",
+  "description": "insta485 front end",
+  "main": "insta485/js/main.jsx",
+  "author": "awdeorio",
   "license": "MIT",
   "repository": {},
   "devDependencies": {
@@ -25,7 +25,6 @@
     "moment": "==2.18.1",
     "prop-types": "==15.6.0",
     "react": "==16.1.0",
-    "react-autosuggest": "==9.3.4",
     "react-dom": "==16.0.1",
     "react-infinite-scroll-component": "==2.4.0"
   }
