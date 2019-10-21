@@ -3,20 +3,24 @@ FROM jameslp/autograder-sandbox:3.1.2
 RUN apt-get update
 RUN apt-get install -y software-properties-common python3-software-properties
 
-RUN apt-get install -y libxml2-dev libxslt1-dev libz-dev
+RUN apt-get install -y libxml2-dev libxslt1-dev libz-dev wget
 
 RUN add-apt-repository ppa:deadsnakes/ppa && apt-get update
 RUN apt-get install -y python3.7
 
-RUN add-apt-repository ppa:webupd8team/java && apt-get update
-RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-    apt-get install -y oracle-java8-installer
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+COPY jdk-8u211-linux-x64.tar.gz .
+RUN tar -xf jdk-8u211-linux-x64.tar.gz
+RUN mkdir -p /opt
+RUN mv jdk1.8.0_211 /opt
+RUN rm jdk-8u211-linux-x64.tar.gz
+
+ENV PATH /opt/jdk1.8.0_211/bin:$PATH
+
+ENV JAVA_HOME /opt/jdk1.8.0_211
+ENV JAVA_TOOL_OPTIONS -Xms512m -Xmx512m -XX:+UseSerialGC -XX:MaxMetaspaceSize=256m -XX:CompressedClassSpaceSize=128m
 
 RUN apt-get update --fix-missing && \
     apt-get install -y python3-wheel python3-setuptools python3.7-dev python3-pip python3.7-venv
-
-ENV JAVA_TOOL_OPTIONS -Xms512m -Xmx512m -XX:+UseSerialGC -XX:MaxMetaspaceSize=256m -XX:CompressedClassSpaceSize=128m
 
 RUN apt-get install -y sqlite3
 
@@ -29,8 +33,8 @@ RUN python3.7 -m venv env-p2
 RUN env-p2/bin/pip install -r requirements-485-p2.txt
 
 COPY requirements-485-p3.txt .
-RUN python3.7 -m venv env-p3
-RUN env-p3/bin/pip install -r requirements-485-p3.txt
+RUN su -c "python3.7 -m venv env-p3" autograder
+RUN su -c "env-p3/bin/pip install -r requirements-485-p3.txt" autograder
 
 RUN apt-get install -y unzip
 RUN wget https://chromedriver.storage.googleapis.com/2.36/chromedriver_linux64.zip
@@ -47,9 +51,9 @@ RUN rm linux_signing_key.pub chromedriver_linux64.zip
 COPY package.json .
 COPY package-lock.json .
 
-RUN env-p3/bin/pip install nodeenv
-RUN env-p3/bin/nodeenv --python-virtualenv
-RUN . env-p3/bin/activate && npm install .
+RUN su -c "env-p3/bin/pip install nodeenv" autograder
+RUN su -c "env-p3/bin/nodeenv --python-virtualenv" autograder
+RUN su -c ". env-p3/bin/activate && npm install ." autograder
 
 COPY requirements-485-p4.txt .
 RUN python3.7 -m venv env-p4
@@ -74,7 +78,8 @@ RUN tar -xvz -C /opt -f hadoop-${hadoop_version}.tar.gz
 ENV PATH="/opt/hadoop-${hadoop_version}/bin:${PATH}"
 RUN rm hadoop-${hadoop_version}.tar.gz
 
-RUN chown -R autograder .
+RUN chown -R autograder:autograder .
 RUN rm requirements-485-p1.txt requirements-485-p2.txt requirements-485-p3.txt requirements-485-p4.txt
 
 RUN apt-get install -y libgconf-2-4
+
