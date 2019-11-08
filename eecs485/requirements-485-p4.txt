@@ -5,3 +5,4 @@ pydocstyle==4.0.1
 pylint==2.4.3
 pytest==5.2.1
 sh==1.12.14
+six==1.12
