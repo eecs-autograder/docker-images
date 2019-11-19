@@ -80,8 +80,9 @@ RUN tar -xvz -C /opt -f hadoop-${hadoop_version}.tar.gz
 ENV PATH="/opt/hadoop-${hadoop_version}/bin:${PATH}"
 RUN rm hadoop-${hadoop_version}.tar.gz
 
-#RUN chown -R autograder:autograder .
 RUN rm requirements-485-p1.txt requirements-485-p2.txt requirements-485-p3.txt requirements-485-p4.txt requirements-485-p5.txt
 
 RUN apt-get install -y libgconf-2-4
 RUN chown autograder:autograder package.json package-lock.json
+
+RUN apt-get install -y netcat
