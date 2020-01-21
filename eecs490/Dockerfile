@@ -22,7 +22,7 @@ ENV PATH /opt/jdk1.8.0_211/bin:$PATH
 ENV JAVA_HOME /opt/jdk1.8.0_211
 
 RUN apt-get install -y python3.7-dev
-RUN apt-get install wget
+RUN apt-get install -y wget
 RUN wget https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py
 RUN python3.7 /tmp/get-pip.py
 RUN python3.7 -m pip install numpy
