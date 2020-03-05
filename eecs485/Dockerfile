@@ -67,7 +67,7 @@ RUN env-p5/bin/pip install nodeenv
 RUN env-p5/bin/nodeenv --python-virtualenv
 RUN . env-p5/bin/activate && npm install .
 
-RUN wget https://chromedriver.storage.googleapis.com/77.0.3865.40/chromedriver_linux64.zip
+RUN wget https://chromedriver.storage.googleapis.com/79.0.3945.36/chromedriver_linux64.zip
 RUN unzip chromedriver_linux64.zip
 RUN cp chromedriver env-p3/bin
 RUN mv chromedriver env-p5/bin

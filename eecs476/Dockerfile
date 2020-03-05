@@ -34,7 +34,11 @@ RUN apt-get install -y python3.6 python3.6-dev
 RUN wget https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py
 RUN python3.6 /tmp/get-pip.py
 
-RUN wget https://repo.anaconda.com/archive/Anaconda3-5.2.0-Linux-x86_64.sh -O /tmp/anaconda.sh
+RUN apt-get install -y python3.7 python3.7-dev
+RUN wget https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py
+RUN python3.7 /tmp/get-pip.py
+
+RUN wget https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh -O /tmp/anaconda.sh
 RUN bash /tmp/anaconda.sh -b -p /opt/anaconda3
 
 ENV PATH /opt/anaconda3/bin:$PATH
