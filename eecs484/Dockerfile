@@ -50,3 +50,6 @@ RUN rm jdk-8u211-linux-x64.tar.gz \
        instantclient-basiclite-linux.x64-19.3.0.0.0dbru.zip \
        instantclient-sqlplus-linux.x64-19.3.0.0.0dbru.zip \
        instantclient-jdbc-linux.x64-19.3.0.0.0dbru.zip
+
+RUN apt-get install -y jq
+
