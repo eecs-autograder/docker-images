@@ -31,3 +31,6 @@ COPY start_mongo.sh /usr/local/bin/start_mongo.sh
 RUN chmod +x /usr/local/bin/start_mongo.sh
 
 RUN apt-get install -y jq
+
+RUN apt-get install -y python3-pip
+RUN pip3 install deepdiff 

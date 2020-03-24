@@ -53,3 +53,6 @@ RUN rm jdk-8u211-linux-x64.tar.gz \
 
 RUN apt-get install -y jq
 
+RUN apt-get install -y python3-pip
+RUN pip3 install deepdiff 
+
