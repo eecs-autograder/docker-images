@@ -14,7 +14,7 @@ RUN env-p5/bin/nodeenv --python-virtualenv
 RUN . env-p5/bin/activate && npm install .
 
 
-RUN wget https://chromedriver.storage.googleapis.com/81.0.4044.69/chromedriver_linux64.zip
+RUN wget https://chromedriver.storage.googleapis.com/83.0.4103.39/chromedriver_linux64.zip
 RUN unzip chromedriver_linux64.zip
 RUN mv chromedriver env-p5/bin
 RUN rm chromedriver_linux64.zip
@@ -28,5 +28,5 @@ RUN apt-key add linux_signing_key.pub
 RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 RUN apt-get update && apt-get install -y google-chrome-stable
 
-RUN rm linux_signing_key.pub 
+RUN rm linux_signing_key.pub
 RUN rm requirements-485-p5.txt
