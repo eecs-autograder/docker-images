@@ -3,14 +3,13 @@ FROM jameslp/autograder-sandbox:3.1.2
 RUN apt-get update --fix-missing
 RUN apt-get install -y software-properties-common
 
-RUN add-apt-repository ppa:webupd8team/java
-RUN apt-get update
+COPY jdk-8u211-linux-x64.tar.gz .
+RUN mkdir -p /usr/lib/jvm && tar -xzvf jdk-8u211-linux-x64.tar.gz -C /usr/lib/jvm
 
-RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-    apt-get install -y oracle-java8-installer
-
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+ENV JAVA_HOME /usr/lib/jvm/jdk1.8.0_211
 ENV JAVA_TOOL_OPTIONS -Xms512m -Xmx512m -XX:+UseSerialGC -XX:MaxMetaspaceSize=256m -XX:CompressedClassSpaceSize=128m
+RUN update-alternatives --install /usr/bin/java java ${JAVA_HOME%*/}/bin/java 20000
+RUN update-alternatives --install /usr/bin/javac javac ${JAVA_HOME%*/}/bin/javac 20000
 
 RUN apt-get install -y unzip
 
