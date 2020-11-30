@@ -13,7 +13,6 @@ RUN mv jdk1.8.0_211 /opt
 ENV PATH /opt/jdk1.8.0_211/bin:$PATH
 
 ENV JAVA_HOME /opt/jdk1.8.0_211
-ENV JAVA_TOOL_OPTIONS -Xms512m -Xmx512m -XX:+UseSerialGC -XX:MaxMetaspaceSize=256m -XX:CompressedClassSpaceSize=128m
 
 RUN apt-get install -y unzip wget
 
