@@ -1,5 +1,0 @@
-click==7.1.2
-pycodestyle==2.6.0
-pydocstyle==5.0.2
-pylint==2.5.3
-pytest==5.4.3
