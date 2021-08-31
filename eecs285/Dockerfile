@@ -5,14 +5,14 @@ RUN apt-get install -y software-properties-common
 
 RUN apt-get update
 
-COPY jdk-8u211-linux-x64.tar.gz .
-RUN tar -xf jdk-8u211-linux-x64.tar.gz
+COPY jdk-8u301-linux-x64.tar.gz .
+RUN tar -xf jdk-8u301-linux-x64.tar.gz
 RUN mkdir -p /opt
-RUN mv jdk1.8.0_211 /opt
+RUN mv jdk1.8.0_301 /opt
 
-ENV PATH /opt/jdk1.8.0_211/bin:$PATH
+ENV PATH /opt/jdk1.8.0_301/bin:$PATH
 
-ENV JAVA_HOME /opt/jdk1.8.0_211
+ENV JAVA_HOME /opt/jdk1.8.0_301
 
 RUN apt-get install -y unzip wget
 
@@ -33,4 +33,4 @@ ENV PATH /opt/checkstyle:/opt/pmd/bin:$PATH
 RUN apt-get install -y junit4
 ENV CLASSPATH $CLASSPATH:/usr/share/java/junit4.jar
 
-RUN rm jdk-8u211-linux-x64.tar.gz
+RUN rm jdk-8u301-linux-x64.tar.gz

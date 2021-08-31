@@ -1,4 +1,4 @@
-FROM jameslp/eecs285:2
+FROM jameslp/eecs285:3
 
 ENV ANDROID_HOME /home/autograder/working_dir/android_sdk
 ENV GRADLE_USER_HOME /home/autograder/working_dir/.gradle
