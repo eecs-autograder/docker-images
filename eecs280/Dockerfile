@@ -1,4 +1,4 @@
-FROM jameslp/autograder-sandbox:3.1.2
+FROM eecsautograder/ubuntu22:latest 
 
 RUN apt-get update --fix-missing
 RUN apt-get install -y software-properties-common
