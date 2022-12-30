@@ -22,14 +22,8 @@ COPY oclint-0.13-x86_64-linux-4.4.0-93-generic.tar.gz .
 RUN tar -xzf oclint-0.13-x86_64-linux-4.4.0-93-generic.tar.gz
 RUN mv oclint-0.13 /opt/oclint
 
-COPY cppcheck-1.83.tar.gz .
-RUN tar -xzf cppcheck-1.83.tar.gz
-RUN mv cppcheck-1.83 /opt/cppcheck
-RUN cd /opt/cppcheck && make CFGDIR=/opt/cppcheck/cfg CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function"
-
-ENV PATH /opt/oclint/bin:/opt/pmd/bin:/opt/cppcheck:$PATH
+ENV PATH /opt/oclint/bin:/opt/pmd/bin:$PATH
 
 RUN rm pmd-bin-6.0.1.zip
 RUN rm oclint-0.13-x86_64-linux-4.4.0-93-generic.tar.gz
-RUN rm cppcheck-1.83.tar.gz
 
