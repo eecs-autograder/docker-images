@@ -24,6 +24,7 @@ RUN mv oclint-0.13 /opt/oclint
 
 ENV PATH /opt/oclint/bin:/opt/pmd/bin:$PATH
 
+RUN rm jdk-8u211-linux-x64.tar.gz
 RUN rm pmd-bin-6.0.1.zip
 RUN rm oclint-0.13-x86_64-linux-4.4.0-93-generic.tar.gz
 
