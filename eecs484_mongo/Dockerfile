@@ -1,4 +1,6 @@
-FROM jameslp/autograder-sandbox:3.1.2
+FROM eecsautograder/ubuntu20:latest
+
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update --fix-missing
 RUN apt-get install -y software-properties-common
@@ -7,21 +9,20 @@ RUN apt-get update
 
 RUN apt-get install -y unzip wget
 
-ENV MONGO_MAJOR 3.6
-ENV MONGO_VERSION 3.6.8
+RUN add-apt-repository ppa:openjdk-r/ppa
+RUN apt-get update
+RUN apt-get install -y openjdk-11-jdk
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
+
+ENV MONGO_MAJOR 6.0
+ENV MONGO_VERSION 6.0.0
 
 RUN apt-get install -y ca-certificates apt-transport-https
 RUN wget -qO - https://www.mongodb.org/static/pgp/server-${MONGO_MAJOR}.asc | apt-key add -
-RUN echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/${MONGO_MAJOR} multiverse" | tee /etc/apt/sources.list.d/mongodb-org-${MONGO_MAJOR}.list
+RUN echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/${MONGO_MAJOR} multiverse" | tee /etc/apt/sources.list.d/mongodb-org-${MONGO_MAJOR}.list
 RUN apt-get update
-#RUN apt-get install -y mongodb-org
 
-RUN apt-get install -y \
-        mongodb-org=${MONGO_VERSION} \
-        mongodb-org-server=${MONGO_VERSION} \
-        mongodb-org-shell=${MONGO_VERSION} \
-        mongodb-org-mongos=${MONGO_VERSION} \
-        mongodb-org-tools=${MONGO_VERSION}
+RUN apt-get install -y mongodb-org
 
 ENV DATA_DB_DIR /home/autograder/data/db
 RUN mkdir -p $DATA_DB_DIR
